@@ -11,8 +11,8 @@ import (
 )
 
 func Load(file string, v interface{}) error {
-	fileType := strings.ToLower(path.Ext(file))
-	viper.SetConfigType(fileType)
+	ext := strings.ToLower(path.Ext(file))
+	viper.SetConfigType(ext[1:])
 
 	f, err := os.Open(file)
 	if err != nil {
