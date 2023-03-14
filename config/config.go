@@ -2,6 +2,8 @@ package config
 
 import (
 	"bytes"
+	"io/ioutil"
+	"os"
 	"path"
 	"strings"
 
@@ -10,10 +12,21 @@ import (
 
 func Load(file string, v interface{}) error {
 	fileType := strings.ToLower(path.Ext(file))
-
 	viper.SetConfigType(fileType)
 
-	r := bytes.NewReader([]byte(file))
+	f, err := os.Open(file)
+	if err != nil {
+		return err
+	}
+	defer func(f *os.File) {
+		_ = f.Close()
+	}(f)
+	data, err := ioutil.ReadAll(f)
+	if err != nil {
+		return err
+	}
+
+	r := bytes.NewReader(data)
 	if err := viper.ReadConfig(r); err != nil {
 		return err
 	}
