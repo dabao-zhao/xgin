@@ -1,4 +1,4 @@
-module xgin
+module github.com/dabao-zhao/xgin/cmd/xgin
 
 go 1.17
 

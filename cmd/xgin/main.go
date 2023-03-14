@@ -5,10 +5,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"xgin/internal/app"
-	"xgin/internal/model"
-	xnew "xgin/internal/new"
-	"xgin/internal/upgrade"
+	"github.com/dabao-zhao/xgin/cmd/xgin/internal/app"
+	"github.com/dabao-zhao/xgin/cmd/xgin/internal/model"
+	xnew "github.com/dabao-zhao/xgin/cmd/xgin/internal/new"
+	"github.com/dabao-zhao/xgin/cmd/xgin/internal/upgrade"
 )
 
 var rootCmd = &cobra.Command{

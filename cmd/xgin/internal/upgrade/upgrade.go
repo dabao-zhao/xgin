@@ -2,9 +2,10 @@ package upgrade
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 	"os/exec"
+
+	"github.com/spf13/cobra"
 )
 
 // CmdUpgrade represents the upgrade command.
