@@ -80,18 +80,14 @@ func NewWriter(file string) (*Writer, error) {
 	basename = strings.TrimSuffix(filepath.Base(file), ext)
 	ext = strings.TrimPrefix(ext, ".")
 
-	for {
-		completeFileName = fmt.Sprintf("%s/%s.%s", dir, basename, ext)
-		if stat, err = os.Stat(completeFileName); err != nil {
-			if os.IsNotExist(err) {
-				if handler, err = os.OpenFile(
-					completeFileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666); err != nil {
-					return nil, err
-				}
-				break
-			} else {
+	completeFileName = fmt.Sprintf("%s/%s.%s", dir, basename, ext)
+	if stat, err = os.Stat(completeFileName); err != nil {
+		if os.IsNotExist(err) {
+			if handler, err = os.OpenFile(completeFileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666); err != nil {
 				return nil, err
 			}
+		} else {
+			return nil, err
 		}
 	}
 
