@@ -1,7 +1,7 @@
 package template
 
-// ServiceGen defines a template for service
-var ServiceGen = `
+// HandlerGen defines a template for handler
+var HandlerGen = `
 package {{.pkg}}
 {{.imports}}
 {{.types}}

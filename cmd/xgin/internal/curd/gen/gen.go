@@ -7,6 +7,7 @@ import (
 	"github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/model"
 	bizGen "github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/module/biz/gen"
 	dataGen "github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/module/data/gen"
+	handlerGen "github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/module/handler/gen"
 	serviceGen "github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/module/service/gen"
 	typeGen "github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/module/type/gen"
 	"github.com/dabao-zhao/xgin/cmd/xgin/internal/curd/parser"
@@ -90,7 +91,7 @@ func (g *Generator) CreateFromTables(tables []*parser.Table) error {
 		return err
 	}
 
-	service, err := serviceGen.NewDefaultGenerator(g.dir+"/service", g.originDir)
+	service, err := serviceGen.NewDefaultGenerator(g.dir+"/services", g.originDir)
 	if err != nil {
 		return err
 	}
@@ -104,6 +105,15 @@ func (g *Generator) CreateFromTables(tables []*parser.Table) error {
 		return err
 	}
 	err = data.CreateFromTables(tables)
+	if err != nil {
+		return err
+	}
+
+	handler, err := handlerGen.NewDefaultGenerator(g.dir+"/handlers", g.originDir)
+	if err != nil {
+		return err
+	}
+	err = handler.CreateFromTables(tables)
 	if err != nil {
 		return err
 	}
