@@ -1,26 +1,22 @@
-package new
+package app
 
 import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/dabao-zhao/xgin/cmd/xgin/internal/base"
+	"github.com/spf13/cobra"
 	"log"
 	"os"
 	"path"
 	"time"
-
-	"github.com/spf13/cobra"
-
-	"github.com/dabao-zhao/xgin/cmd/xgin/internal/base"
 )
 
-// 初始化项目
-
-// CmdNew represents the new command.
-var CmdNew = &cobra.Command{
-	Use:   "new",
-	Short: "Create a project template",
-	Long:  "Create a project using the template. Example: xgin new helloworld",
+// CmdApp represents the app command.
+var CmdApp = &cobra.Command{
+	Use:   "app",
+	Short: "Create a app template",
+	Long:  "Create a app using the template. Example: xgin app helloworld",
 	Run:   run,
 }
 
@@ -34,9 +30,9 @@ func init() {
 	repoURL = "https://github.com/dabao-zhao/xgin-layout.git"
 	timeout = "60s"
 
-	CmdNew.Flags().StringVarP(&repoURL, "repo-url", "r", repoURL, "layout repo")
-	CmdNew.Flags().StringVarP(&branch, "branch", "b", branch, "repo branch")
-	CmdNew.Flags().StringVarP(&timeout, "timeout", "t", timeout, "time out")
+	CmdApp.Flags().StringVarP(&repoURL, "repo-url", "r", repoURL, "layout repo")
+	CmdApp.Flags().StringVarP(&branch, "branch", "b", branch, "repo branch")
+	CmdApp.Flags().StringVarP(&timeout, "timeout", "t", timeout, "time out")
 }
 
 func run(cmd *cobra.Command, args []string) {
@@ -86,7 +82,7 @@ func create(ctx context.Context, wd, name, layout, branch string) error {
 
 	fmt.Printf("Creating project %s, layout repo is %s, please wait a moment.\n", name, layout)
 	repo := base.NewRepo(layout, branch)
-	if err := repo.CopyTo(ctx, to, path.Base(name), []string{".git", ".github"}); err != nil {
+	if err := repo.CopyTo2(ctx, to, name); err != nil {
 		return err
 	}
 

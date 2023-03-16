@@ -34,8 +34,6 @@ type (
 	}
 )
 
-// 需要增加一个对 data.go 的检测，没有得话需要创建
-
 // NewDefaultGenerator creates an instance for defaultGenerator
 func NewDefaultGenerator(dir string, parentPkg string) (*DefaultGenerator, error) {
 	dirAbs, err := filepath.Abs(dir)

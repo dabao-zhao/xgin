@@ -87,6 +87,38 @@ func copyDir(src, dst string, replaces, ignores []string) error {
 	return nil
 }
 
+func copyDir2(src, dst string, replaces []string) error {
+	var err error
+	var fds []os.DirEntry
+	var srcinfo os.FileInfo
+
+	if srcinfo, err = os.Stat(src); err != nil {
+		return err
+	}
+
+	if err = os.MkdirAll(dst, srcinfo.Mode()); err != nil {
+		return err
+	}
+
+	if fds, err = os.ReadDir(src); err != nil {
+		return err
+	}
+	for _, fd := range fds {
+		srcfp := path.Join(src, fd.Name())
+		dstfp := path.Join(dst, fd.Name())
+		var e error
+		if fd.IsDir() {
+			e = copyDir2(srcfp, dstfp, replaces)
+		} else {
+			e = copyFile(srcfp, dstfp, replaces)
+		}
+		if e != nil {
+			return e
+		}
+	}
+	return nil
+}
+
 func hasSets(name string, sets []string) bool {
 	for _, ig := range sets {
 		if ig == name {

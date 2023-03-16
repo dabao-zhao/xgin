@@ -112,3 +112,22 @@ func (r *Repo) CopyTo(ctx context.Context, to string, modPath string, ignores []
 	}
 	return copyDir(r.Path(), to, []string{mod, modPath}, ignores)
 }
+
+func (r *Repo) CopyTo2(ctx context.Context, to string, new string) error {
+	if err := r.Clone(ctx); err != nil {
+		return err
+	}
+	mod, err := ModulePath(path.Join(r.Path(), "go.mod"))
+	if err != nil {
+		return err
+	}
+	newMod, err := ModulePath("go.mod")
+	if err != nil {
+		return err
+	}
+	return copyDir2(path.Join(r.Path(), "app", "helloworld", "v1"), to, []string{
+		path.Join(mod, "app", "helloworld", "v1"), path.Join(newMod, new),
+		mod, newMod,
+		"v1", path.Base(new),
+	})
+}
