@@ -5,8 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/dabao-zhao/xgin/cmd/xgin/internal/app"
-	"github.com/dabao-zhao/xgin/cmd/xgin/internal/model"
+	"github.com/dabao-zhao/xgin/cmd/xgin/internal/curd"
 	xnew "github.com/dabao-zhao/xgin/cmd/xgin/internal/new"
 	"github.com/dabao-zhao/xgin/cmd/xgin/internal/upgrade"
 )
@@ -19,9 +18,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(model.CmdModel)
 	rootCmd.AddCommand(xnew.CmdNew)
-	rootCmd.AddCommand(app.CmdApp)
+	rootCmd.AddCommand(curd.CmdCurd)
 	rootCmd.AddCommand(upgrade.CmdUpgrade)
 }
 
