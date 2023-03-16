@@ -19,7 +19,7 @@ var CmdUpgrade = &cobra.Command{
 // Run upgrade the kratos tools.
 func run(cmd *cobra.Command, args []string) {
 	err := base.GoInstall(
-		"github.com/dabao-zhao/xgin@latest",
+		"github.com/dabao-zhao/xgin/cmd/xgin@latest",
 	)
 	if err != nil {
 		fmt.Println(err)
