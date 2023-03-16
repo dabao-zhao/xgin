@@ -15,6 +15,11 @@ func genTypes(table *parser.Table) (string, error) {
 		return "", err
 	}
 
+	fieldsStringTagOnlyJson, err := genFieldsTagOnlyJson(table, fields)
+	if err != nil {
+		return "", err
+	}
+
 	text, err := filex.LoadTemplate(typeTemplateFile, template.TypeTpl)
 	if err != nil {
 		return "", err
@@ -29,6 +34,7 @@ func genTypes(table *parser.Table) (string, error) {
 			"dataType":                  table.PrimaryKey.DataType,
 			"upperStartCamelObject":     table.Name.ToCamel(),
 			"fields":                    fieldsString,
+			"fieldsTagOnlyJson":         fieldsStringTagOnlyJson,
 			"data":                      table,
 		})
 	if err != nil {

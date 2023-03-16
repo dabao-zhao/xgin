@@ -26,8 +26,6 @@ type (
 	}
 )
 
-// 需要优化掉 resp 的 form
-
 // NewDefaultGenerator creates an instance for defaultGenerator
 func NewDefaultGenerator(dir string) (*DefaultGenerator, error) {
 	dirAbs, err := filepath.Abs(dir)
